@@ -204,9 +204,10 @@ if __name__ == "__main__":
     ui.d.screen_on()
     ui.d.app_stop_all()
     ui.GetAli()
+    ui.d.screenshot("ali.jpg")
     ui.d.app_stop_all()
     ui.GetYan()
+    ui.d.screenshot("yan.jpg")
     ui.d.app_stop_all()
-    ui.d.screen_off()
 
 
