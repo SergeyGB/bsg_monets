@@ -5,6 +5,7 @@ import uiautomator2.image as u2image
 #import numpy
 from datetime import datetime as dt
 import logging
+import os
 
 ##########
 #0  x 1080
@@ -19,6 +20,9 @@ class  UI:
 
     def Init(self):
         self.d = u2.connect()
+        self.directory = dt.now().strftime("%Y-%m-%d")
+        if not os.path.exists("./data/"+self.directory):
+           os.makedirs("./data/"+self.directory)
 
     def log(self,s):
         self.ss(s)
@@ -45,10 +49,10 @@ class  UI:
 
 
     def ss(self, fn=""):
-        self.d.screenshot("./data/"+dt.now().strftime("%Y-%m-%d_%H_%M") +  fn + ".jpg")
+        self.d.screenshot("./data/"+self.directory+"/"+dt.now().strftime("%H_%M") +  fn + ".jpg")
 
     def xml(self, fn=""):
-        with open("./data/"+dt.now().strftime("%Y-%m-%d_%H_%M") +  fn + ".xml", 'w') as f:
+        with open("./data/"+self.directory+"/"+dt.now().strftime("%H_%M") +  fn + ".xml", 'w') as f:
            s = self.d.dump_hierarchy()
            f.write(s)
 
@@ -137,6 +141,7 @@ class  UI:
             self.ce = self.d.xpath(self.xp)
             self.log("A06")
             self.ce.click()
+            self.wait(10)
 
             #self.xp = '//*[@text="День 1"]'
             self.xp = '//*[@text="Собрать монеты"]'
